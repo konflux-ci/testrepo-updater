@@ -60,4 +60,4 @@ jobs:
         run: |
           bash .github/scripts/create-or-update-issue.sh \
             "Mirror to konflux-ci/testrepo workflow failed" \
-            "The workflow that mirrors this repository to konflux-ci/testrepo (after moving .tekton to pipelines/, stripping namespaces, and rewriting output-image to the internal registry) failed."
+            "The workflow that mirrors this repository to konflux-ci/testrepo (after moving .tekton to pipelines/, normalizing pipeline namespaces to user-ns2, and rewriting output-image to the internal registry) failed."
