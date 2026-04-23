@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Build a staging directory: copy updater repo (excluding mirror internals), move .tekton → pipelines,
-# strip namespaces, rewrite output-image params. Writes GitHub Actions output staging_dir.
+# strip namespaces, rewrite output-image params, rename pipeline files, sanitize public metadata.
+# Writes GitHub Actions output staging_dir.
 #
 # Required env in Actions: GITHUB_WORKSPACE, GITHUB_OUTPUT
 # Optional: MIRROR_INTERNAL_OUTPUT_IMAGE_PREFIX
@@ -27,6 +28,7 @@ bash "${SCRIPT_DIR}/move-tekton-to-pipelines.sh" "$STAGING"
 bash "${SCRIPT_DIR}/strip-tekton-namespaces.sh" "${STAGING}/pipelines"
 bash "${SCRIPT_DIR}/rewrite-output-images.sh" "${STAGING}/pipelines"
 bash "${SCRIPT_DIR}/rename-pipelines-for-public-testrepo.sh" "$STAGING"
+bash "${SCRIPT_DIR}/sanitize-testrepo-pipeline-metadata.sh" "${STAGING}/pipelines"
 popd >/dev/null
 
 echo "prepare-staging: staging tree at $STAGING"
