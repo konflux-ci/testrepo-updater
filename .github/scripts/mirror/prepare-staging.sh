@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Build a staging directory: copy updater repo (excluding mirror internals), move .tekton → pipelines,
-# strip namespaces then set demo namespace on PipelineRuns, rewrite output-image params,
+# strip namespaces then set default-tenant on PipelineRuns, rewrite output-image params,
 # rename pipeline files, sanitize public metadata.
 # Writes GitHub Actions output staging_dir.
 #

@@ -16,7 +16,7 @@ metadata:
     appstudio.openshift.io/component: test-component
     pipelines.appstudio.openshift.io/type: build
   generateName: test-component-on-pull-request-
-  namespace: user-ns2
+  namespace: default-tenant
 spec:
   params:
   - name: git-url
