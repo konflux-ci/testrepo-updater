@@ -8,6 +8,7 @@
 #   GITHUB_SHA             commit SHA from updater (for commit message)
 # Optional:
 #   TARGET_BRANCH          default main
+#   DRY_RUN                set to "true" to only print the diff without pushing
 #   GIT_USER_NAME / GIT_USER_EMAIL for commit attribution
 set -euo pipefail
 
@@ -17,6 +18,7 @@ set -euo pipefail
 : "${GITHUB_SHA:?GITHUB_SHA is required}"
 
 TARGET_BRANCH="${TARGET_BRANCH:-main}"
+DRY_RUN="${DRY_RUN:-false}"
 GIT_USER_NAME="${GIT_USER_NAME:-github-actions[bot]}"
 GIT_USER_EMAIL="${GIT_USER_EMAIL:-41898282+github-actions[bot]@users.noreply.github.com}"
 
@@ -51,6 +53,12 @@ if git diff --cached --quiet; then
 fi
 
 git commit -m "Mirror from konflux-ci/testrepo-updater@${GITHUB_SHA:0:12}"
+
+if [[ "$DRY_RUN" == "true" ]]; then
+  echo "push-to-target: [dry-run] would push to ${TARGET_REPOSITORY} ${TARGET_BRANCH}:"
+  git show --stat --patch
+  exit 0
+fi
 
 git push origin "HEAD:${TARGET_BRANCH}"
 
