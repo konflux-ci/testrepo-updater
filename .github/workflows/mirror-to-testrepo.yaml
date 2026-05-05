@@ -18,6 +18,10 @@ permissions:
   contents: read
   issues: write
 
+concurrency:
+  group: all
+  cancel-in-progress: false
+
 env:
   MIRROR_INTERNAL_OUTPUT_IMAGE_PREFIX: registry-service.kind-registry/testrepo
   TARGET_REPOSITORY: konflux-ci/testrepo
