@@ -37,8 +37,11 @@ git config user.email "$GIT_USER_EMAIL"
 
 git checkout "$TARGET_BRANCH"
 
+# Staging must not contain .github/ (see prepare-staging.sh). Protect the mirror's .github tree so
+# --delete does not remove workflows and other metadata maintained only on the target repo.
 rsync -a --delete \
   --exclude=.git \
+  --filter='P /.github/**' \
   "${STAGING_DIR}/" ./
 
 # Stage everything first: untracked new files from rsync do not appear in `git diff`
