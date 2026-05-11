@@ -16,13 +16,11 @@ echo "staging_dir=$STAGING" >>"${GITHUB_OUTPUT}"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# Copy repo without git metadata and without updater-only workflows/scripts (they must not land on testrepo).
+# Copy repo without git metadata. Entire .github/ is omitted so konflux-ci/testrepo can maintain its
+# own Actions, templates, and scripts independently of this repository.
 rsync -a \
   --exclude=.git \
-  --exclude=.github/workflows/mirror-to-testrepo.yaml \
-  --exclude=.github/workflows/fullsend.yaml \
-  --exclude=.github/scripts/mirror/ \
-  --exclude=.github/scripts/create-or-update-issue.sh \
+  --exclude=.github/ \
   "${ROOT}/" "${STAGING}/"
 
 pushd "$STAGING" >/dev/null
