@@ -36,7 +36,7 @@ jobs:
         id: prepare
         run: bash .github/scripts/mirror/prepare-staging.sh
 
-      - uses: actions/create-github-app-token@v1
+      - uses: actions/create-github-app-token@v3
         id: mirror-token
         with:
           app-id: ${{ secrets.TESTREPO_MIRROR_GITHUB_APP_ID }}
